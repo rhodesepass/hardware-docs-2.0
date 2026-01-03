@@ -4,7 +4,6 @@ import './hyperos.css'
 export default {
   extends: DefaultTheme,
   enhanceApp({ app, router }) {
-    // 页面切换动画
     if (typeof window !== 'undefined') {
       router.onBeforeRouteChange = () => {
         document.body.classList.add('page-leaving')
