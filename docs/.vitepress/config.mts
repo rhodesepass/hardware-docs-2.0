@@ -4,7 +4,7 @@ export default defineConfig({
   title: '明日方舟电子通行证',
   description: '基于F1C200S的开源Linux手持开发板文档',
   lang: 'zh-CN',
-  base: '/docs/', // GitHub 仓库名，部署到 rhodesepass/hardware-docs-2.0
+  base: '/', // 部署到 ep.iccmc.cc
 
   head: [
     ['link', { rel: 'icon', href: '/logo.png' }]
@@ -19,6 +19,7 @@ export default defineConfig({
       { text: '硬件', link: '/guide/hardware/' },
       { text: '固件', link: '/guide/firmware/' },
       { text: '调试', link: '/guide/debug/' },
+      { text: '开发', link: '/guide/develop/' },
       {
         text: '相关链接',
         items: [

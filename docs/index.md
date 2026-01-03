@@ -14,7 +14,7 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: 在 GitHub 上查看
-      link: https://github.com/inapp123/epass_hardware
+      link: https://github.com/rhodesepass/docs
 
 features:
   - icon: 🚀
