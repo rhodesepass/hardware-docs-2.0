@@ -8,10 +8,11 @@ ioctl是在sun4i-drm上添加的，源代码见[buildroot中的这个patch](http
 * 现有的Drm Atomic API在每次调用时都需要重新进行modeset，读写大量寄存器，很慢。而我们只需要更改CRTC_X CRTC_Y alpha等少数寄存器，完全可以一个regmap_write搞定。
 * Cedarc的解码无法手动给出buffer。只能去问cedarc要他在ion里申请的buffer。如果不使用一些非常规手段直接设置寄存器地址的话，就需要CPU每帧进行画面复制，效率很低。
 
-## 注意：
+:::: 注意：
 IOCTL不会等待vblank，他会尽快写入寄存器并退回。你可以考虑使用drmWaitVblank完成等待。
 
 IOCTL没有实现Modeset API！你需要先用drm申请图层、申请buffer（或者想办法获得一块1024byte对其的连续的buffer），进行一次Modeset以后，再开始调用ioctl。
+::::
 
 ## ioctl定义
 
@@ -97,6 +98,11 @@ arg1: buffer UV地址(用户态地址)
 
 若设置设置alpha为255，同时会关闭图层的alpha使能寄存器。
 否则，会自动开启图层的alpha使能寄存器。
+
+### DRM_SRGN_RESET_FB_CACHE 说明
+
+内核代码中会缓存用户态地址到物理地址的映射关系，以便快速挂载对应的framebuffer
+因此，在每次使用前，你都需要调用这个IOCTL来清除一次缓存。
 
 ## 示例代码
 （咕咕咕，可以先参考一下：https://github.com/rhodesepass/drm_app_neo/blob/master/src/driver/drm_warpper.c ）

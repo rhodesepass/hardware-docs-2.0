@@ -83,7 +83,8 @@ export default defineConfig({
           items: [
             { text: '开发概述', link: '/guide/develop/' },
             { text: '开发环境搭建', link: '/guide/develop/env_setup' },
-            { text: '定制ioctl文档', link: '/guide/develop/custom_ioctl' }
+            { text: '定制ioctl文档', link: '/guide/develop/custom_ioctl' },
+            { text: '设备树中的功能开关', link: '/guide/develop/dt_switch' },
           ]
         },
         {
