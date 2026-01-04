@@ -1,0 +1,195 @@
+# 白银电子通行证使用说明书
+
+::: tip 适用版本
+- PCB版本：v0.3.1、v0.4
+- 软件版本：a1.4
+:::
+## 定义
+
+<style>
+.device-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  margin: 16px 0;
+}
+.device-layout img {
+  max-width: 280px;
+  border-radius: 8px;
+}
+.device-layout table {
+  margin: 0;
+  flex: 1;
+}
+@media (max-width: 640px) {
+  .device-layout {
+    flex-direction: column;
+  }
+  .device-layout img {
+    max-width: 100%;
+  }
+}
+</style>
+
+<div class="device-layout">
+  <img src="/images/device-overview.png" alt="设备总览">
+
+| 部件 | 说明 |
+|------|------|
+| 按键1 | 切换上一个角色 / 菜单向上 |
+| 按键2 | 切换下一个角色 / 菜单向下 |
+| 按键3 | 展示扩列图 / 菜单确认 |
+| 按键4 | 打开设置菜单 / 返回 |
+| 按键5 | 预留 |
+| SD卡槽 | 插入SD卡进行素材传输 |
+| 开关 | 上推开机，下推关机 |
+| 充电口 | Type-C 充电接口 |
+| 调试/拓展排针 | 用于调试和功能扩展 |
+
+</div>
+
+## 开机
+
+上推开关即可开机，等待开机动画播放结束后自动进入第1个角色。
+
+::: info 注意
+保存关机时角色的功能将在未来软件更新中加入
+:::
+
+## 素材切换与播放调整
+
+### 1. 素材切换
+
+| 操作 | 按键 |
+|------|------|
+| 切换上一个角色 | 按下按键1 |
+| 切换下一个角色 | 按下按键2 |
+
+### 2. 扩列图展示
+
+- 展示/隐藏扩列图：按下**按键3**
+
+### 3. 播放亮度调整
+
+1. 按下**按键4**
+2. 按动按键1/2使光标上/下移动，对准 `Brightness`
+3. 按下**按键3**确认
+4. 按动按键1/2增加/减少亮度
+5. 按下**按键3/4**退出
+
+### 4. 轮播切换间隔调整
+
+1. 按下**按键4**
+2. 按动按键1/2使光标移动到 `Switch Interval`
+3. 按下**按键3**进入
+4. 按动按键1/2调整切换时间（可选：1/3/5/10分钟）
+5. 按下**按键3**保存
+
+### 5. 轮播切换模式调整
+
+1. 按下**按键4**
+2. 按动按键1/2使光标移动到 `Switch Mode`
+3. 按下**按键3**进入
+4. 按动按键1/2调整切换模式：
+   - `Sequence` - 顺序
+   - `Random` - 随机
+   - `Manual` - 保持
+5. 按下**按键3**保存
+
+### 6. 显示干员列表
+
+1. 按下**按键4**
+2. 按动按键1/2使光标移动到 `Operator List`
+3. 按下**按键3**进入
+4. 按下**按键3/4**退出
+
+## 素材制作及传输
+
+### 方式一：使用内部存储传输
+
+1. 按下**按键4**
+2. 按动按键1/2使光标移动到 `USB Download`
+3. 按下**按键3**确认
+4. 使用数据线连接电脑
+5. 将素材拖入 `\Electric Pass\assets` 文件夹中
+6. 按下任意键重启，重启后可拔出数据线
+
+### 方式二：使用SD卡传输（测试中）
+
+1. 下载教程并根据教程操作：
+   - 链接：[百度网盘](https://pan.baidu.com/s/1m9FesnSgNn2ZP_sy4TnR7Q?pwd=2wk9)
+   - 提取码：`2wk9`
+
+2. 准备工具：
+   - 软件：Diskgenius
+   - 硬件：SD卡（最大支持32GB）
+
+### 素材制作
+
+1. 下载制作器：
+   - 链接：[百度网盘](https://pan.baidu.com/s/1B8EU96yhAKkfm191nf2MXg?pwd=yx8i)
+   - 提取码：`yx8i`
+
+2. 准备素材：
+   - 角色视频
+   - 通行证样式蒙版（可选）
+   - 过场展示图片（可选）
+   - 过场动画（可选）
+
+3. 打开 `epass_flasher.exe` 并根据提示进行操作
+
+## 保修说明
+
+::: warning 注意
+1. 电子通行证全系列产品属于手工电子制品，**一经售出无法退回维修**
+2. 如果出现软/硬件问题，请找到向您售卖本通行证的制作者询问，他将为你提供简单的技术支持
+3. 本产品属于"消费者定作的商品"，根据《网络购买商品七日无理由退货暂行办法》第二章第6条，不适用7天无理由退货
+:::
+
+---
+
+<div class="doc-footer">
+
+本说明书适用于由B站UP主「**白银今天下班了吗**」设计并开源的电子通行证
+
+编写：**TQ不是时商** · 遵循 <a href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" class="license-badge">CC BY-ND 4.0</a>
+
+<div class="version-info">
+v0.0.1 · 2025年12月27日 → v0.0.2 · 2025年12月31日
+</div>
+
+</div>
+
+<style>
+.doc-footer {
+  text-align: center;
+  padding: 24px;
+  margin-top: 32px;
+  border-radius: 8px;
+  background: var(--vp-c-bg-soft);
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+  line-height: 2;
+}
+.license-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+  text-decoration: none;
+  margin-right: 4px;
+}
+.license-badge:hover {
+  background: var(--vp-c-brand-1);
+  color: white;
+}
+.version-info {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--vp-c-divider);
+  font-size: 12px;
+  color: var(--vp-c-text-3);
+}
+</style>

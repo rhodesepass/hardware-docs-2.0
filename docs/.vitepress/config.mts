@@ -20,12 +20,14 @@ export default defineConfig({
       { text: '固件', link: '/guide/firmware/' },
       { text: '调试', link: '/guide/debug/' },
       { text: '开发', link: '/guide/develop/' },
+      { text: '使用说明', link: '/guide/docs-usage/' },
       { text: '贡献者', link: '/guide/contributors' },
       {
         text: '相关链接',
         items: [
           { text: '文档GitHub', link: 'https://github.com/rhodesepass/docs' },
-          { text: '软件仓库', link: 'https://github.com/inapp123/epass_drm_app' }
+          { text: '软件仓库', link: 'https://github.com/inapp123/epass_drm_app' },
+          { text: '文件归集', link: 'https://oplst.iccmc.cc' }
         ]
       }
     ],
@@ -65,6 +67,15 @@ export default defineConfig({
           items: [
             { text: '调试概述', link: '/guide/debug/' },
             { text: '常见故障', link: '/guide/debug/troubleshooting' }
+          ]
+        },
+        {
+          text: '使用说明',
+          collapsed: false,
+          items: [
+            { text: '说明书目录', link: '/guide/docs-usage/' },
+            { text: '通行证使用说明书', link: '/guide/docs-usage/user-manual' },
+            { text: '如何贡献', link: '/guide/docs-usage/contributing' }
           ]
         },
         {
