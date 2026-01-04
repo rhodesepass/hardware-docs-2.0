@@ -20,6 +20,7 @@ export default defineConfig({
       { text: '固件', link: '/guide/firmware/' },
       { text: '调试', link: '/guide/debug/' },
       { text: '开发', link: '/guide/develop/' },
+      { text: '贡献者', link: '/guide/contributors' },
       {
         text: '相关链接',
         items: [
@@ -73,6 +74,13 @@ export default defineConfig({
             { text: '开发概述', link: '/guide/develop/' },
             { text: '开发环境搭建', link: '/guide/develop/env_setup' },
             { text: '定制ioctl文档', link: '/guide/develop/custom_ioctl' }
+          ]
+        },
+        {
+          text: '贡献者',
+          collapsed: false,
+          items: [
+            { text: '贡献者名单', link: '/guide/contributors' }
           ]
         }
       ]

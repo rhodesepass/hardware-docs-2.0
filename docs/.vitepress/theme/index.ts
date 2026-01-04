@@ -44,8 +44,6 @@ export default {
 
       router.onAfterRouteChanged = triggerEnterAnimation
 
-      // Fix: GitHub Issue #3226 - 浏览器前进/后退不触发onAfterRouteChanged
-      // https://github.com/vuejs/vitepress/issues/3226
       window.addEventListener('popstate', () => {
         setWillChange(true)
         triggerEnterAnimation()
