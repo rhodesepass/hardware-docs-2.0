@@ -6,46 +6,50 @@ export default {
   enhanceApp({ app, router }) {
     if (typeof window !== 'undefined') {
       let animationFrameId: number | null = null
-      let timeoutId: number | null = null
+      let cleanupTimeoutId: number | null = null
+
+      const setWillChange = (enable: boolean) => {
+        const content = document.querySelector('.VPContent') as HTMLElement
+        if (content) {
+          content.style.willChange = enable ? 'transform, opacity' : 'auto'
+        }
+      }
+
+      const triggerEnterAnimation = () => {
+        animationFrameId = requestAnimationFrame(() => {
+          animationFrameId = requestAnimationFrame(() => {
+            document.body.classList.remove('page-leaving')
+            document.body.classList.add('page-entering')
+            cleanupTimeoutId = window.setTimeout(() => {
+              document.body.classList.remove('page-entering')
+              setWillChange(false)
+            }, 500)
+          })
+        })
+      }
 
       router.onBeforeRouteChange = () => {
         if (animationFrameId) {
           cancelAnimationFrame(animationFrameId)
           animationFrameId = null
         }
-        if (timeoutId) {
-          clearTimeout(timeoutId)
-          timeoutId = null
+        if (cleanupTimeoutId) {
+          clearTimeout(cleanupTimeoutId)
+          cleanupTimeoutId = null
         }
-
-        const content = document.querySelector('.VPContent')
-        if (content) {
-          (content as HTMLElement).style.willChange = 'auto'
-        }
-
+        setWillChange(true)
         document.body.classList.remove('page-entering')
         document.body.classList.add('page-leaving')
       }
 
-      router.onAfterRouteChanged = () => {
-        animationFrameId = requestAnimationFrame(() => {
-          animationFrameId = requestAnimationFrame(() => {
-            document.body.classList.remove('page-leaving')
-            document.body.classList.add('page-entering')
+      router.onAfterRouteChanged = triggerEnterAnimation
 
-            timeoutId = window.setTimeout(() => {
-              animationFrameId = requestAnimationFrame(() => {
-                document.body.classList.remove('page-entering')
-
-                const content = document.querySelector('.VPContent')
-                if (content) {
-                  (content as HTMLElement).style.willChange = 'auto'
-                }
-              })
-            }, 500)
-          })
-        })
-      }
+      // Fix: GitHub Issue #3226 - 浏览器前进/后退不触发onAfterRouteChanged
+      // https://github.com/vuejs/vitepress/issues/3226
+      window.addEventListener('popstate', () => {
+        setWillChange(true)
+        triggerEnterAnimation()
+      })
     }
   }
 }

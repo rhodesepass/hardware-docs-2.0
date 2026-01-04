@@ -25,7 +25,7 @@ features:
     details: 3.0英寸 360×640 高分辨率竖屏，ST7701S驱动，支持H.264硬件解码
   - icon: 🔋
     title: 完善供电方案
-    details: 1500mAh锂电池，TP4056充电管理，续航持久
+    details: 1500mAh锂电池，TP4056充电管理，续航持久（大概）
   - icon: 🔌
     title: 丰富扩展接口
     details: I²C、UART×2、SPI、GPIO×3、ADC，满足各种硬件实验需求
