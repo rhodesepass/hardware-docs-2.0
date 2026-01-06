@@ -4,3 +4,4 @@ docs/.vitepress/dist/
 .DS_Store
 Thumbs.db
 *.log
+pnpm-lock.yaml

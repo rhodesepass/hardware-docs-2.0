@@ -2,6 +2,10 @@
 
 本章节介绍开发相关内容，包括开发环境搭建和开发流程。
 
+本项目采用了“全集成Buildroot”，编译所需的工具链、内核、U-boot、根文件系统，都从同一个buildroot中编译出来。
+
+因此，无论是修改系统固件还是开发新软件，都需要拉取buildroot环境。
+
 ## 开发相关链接：
 
 - **软件仓库**：[电子通行证播放器程序 neo版本](https://github.com/rhodesepass/drm_app_neo)
