@@ -38,6 +38,7 @@ export default defineConfig({
           text: '开始',
           items: [
             { text: '项目声明', link: '/guide/project_statement' },
+            { text: '部分视频教程', link: '/guide/video-tutorial' },
             { text: '快速开始', link: '/guide/getting-started' },
             { text: '准备工作', link: '/guide/preparation' },
             { text: '常见问题', link: '/guide/faq' }
