@@ -183,13 +183,8 @@ cp docs/public/bom/v0.6.json docs/public/bom/v0.7.json
 ### 验证更改
 
 ```bash
-# 启动开发服务器
 npm run docs:dev
-
-# 构建测试
 npm run docs:build
 ```
-
-访问 http://localhost:5173/guide/hardware/components 验证 BOM 表格显示正常。
 
 :::
