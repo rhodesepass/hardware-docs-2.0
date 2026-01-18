@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOM 清单 - v0.5.1 | 明日方舟电子通行证</title>
+  <style>
+    :root {
+      --primary: #3451b2;
+      --primary-light: #5672cd;
+      --bg: #ffffff;
+      --bg-soft: #f6f6f7;
+      --bg-mute: #e9e9eb;
+      --text-1: #213547;
+      --text-2: #476582;
+      --text-3: #90a4ae;
+      --divider: #e2e2e3;
+      --shadow: rgba(0, 0, 0, 0.08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary: #a8b1ff;
+        --primary-light: #5672cd;
+        --bg: #1a1a1a;
+        --bg-soft: #242424;
+        --bg-mute: #2f2f2f;
+        --text-1: #ffffff;
+        --text-2: #a8b1c5;
+        --text-3: #6b7c93;
+        --divider: #2e2e32;
+        --shadow: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+      background: var(--bg);
+      color: var(--text-1);
+      line-height: 1.6;
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .meta {
+      color: var(--text-3);
+      font-size: 0.875rem;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+      max-width: 300px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+      font-size: 0.875rem;
+      border: 1px solid var(--divider);
+      border-radius: 8px;
+      background: var(--bg-soft);
+      color: var(--text-1);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(52, 81, 178, 0.1);
+    }
+
+    .search-box::before {
+      content: "🔍";
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.875rem;
+      opacity: 0.5;
+    }
+
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .cat-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.375rem 0.75rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-2);
+      background: var(--bg-soft);
+      border: 1px solid var(--divider);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .cat-btn:hover {
+      border-color: var(--cat-color);
+      transform: translateY(-1px);
+    }
+
+    .cat-btn.active {
+      color: var(--text-1);
+      background: color-mix(in srgb, var(--cat-color) 15%, transparent);
+      border-color: var(--cat-color);
+    }
+
+    .cat-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cat-color);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 0 -1rem;
+      padding: 0 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    th {
+      padding: 0.75rem 0.5rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-2);
+      background: var(--bg);
+      border-bottom: 2px solid var(--divider);
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    th:hover {
+      color: var(--primary);
+    }
+
+    th .sort-icon {
+      margin-left: 0.25rem;
+      opacity: 0.4;
+      font-size: 0.75rem;
+    }
+
+    th.sorted .sort-icon {
+      opacity: 1;
+      color: var(--primary);
+    }
+
+    td {
+      padding: 0.625rem 0.5rem;
+      border-bottom: 1px solid var(--divider);
+      vertical-align: middle;
+    }
+
+    tr:hover {
+      background: var(--bg-soft);
+    }
+
+    tr.hidden {
+      display: none;
+    }
+
+    code {
+      font-family: "SF Mono", Monaco, Consolas, monospace;
+      font-size: 0.8125rem;
+    }
+
+    .center { text-align: center; }
+    .right { text-align: right; }
+    .highlight { color: var(--primary); font-weight: 500; }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1.25rem;
+      padding: 1rem;
+      background: var(--bg-soft);
+      border-radius: 8px;
+    }
+
+    .summary-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .summary-label {
+      font-size: 0.75rem;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .summary-value {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .summary-total .summary-value {
+      color: var(--primary);
+    }
+
+    .empty {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-3);
+    }
+
+    .export-btns {
+      display: flex;
+      gap: 0.5rem;
+      margin-left: auto;
+    }
+
+    .export-btn {
+      padding: 0.5rem 0.875rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #fff;
+      background: var(--primary);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .export-btn:hover {
+      background: var(--primary-light);
+      transform: translateY(-1px);
+    }
+
+    .export-btn.secondary {
+      color: var(--text-1);
+      background: var(--bg-soft);
+      border: 1px solid var(--divider);
+    }
+
+    .export-btn.secondary:hover {
+      border-color: var(--primary);
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--divider);
+      text-align: center;
+      color: var(--text-3);
+      font-size: 0.8125rem;
+    }
+
+    footer a {
+      color: var(--text-2);
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 1rem; }
+      .hide-mobile { display: none; }
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .search-box { max-width: none; }
+      .export-btns { margin-left: 0; justify-content: stretch; }
+      .export-btn { flex: 1; text-align: center; }
+    }
+
+    @media print {
+      .toolbar, .categories, .export-btns { display: none !important; }
+      .hide-mobile { display: table-cell !important; }
+      body { padding: 0; }
+      th { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BOM 清单 - 明日方舟电子通行证 v0.5.1</h1>
+    <p class="meta">生成时间: 2026/1/18 23:18:02 | 元件种类: 22 | 总数量: 31</p>
+  </header>
+
+  <div class="toolbar">
+    <div class="search-box">
+      <input type="text" id="search" placeholder="搜索元器件...">
+    </div>
+    <div class="export-btns">
+      <button class="export-btn" onclick="exportCSV()">📥 导出 CSV</button>
+      <button class="export-btn secondary" onclick="window.print()">🖨️ 打印</button>
+    </div>
+  </div>
+
+  <div class="categories">
+    
+    <button class="cat-btn active" data-cat="power" style="--cat-color: #4CAF50">
+      <span class="cat-dot"></span>
+      电源部分
+    </button>
+  
+
+    <button class="cat-btn active" data-cat="core" style="--cat-color: #2196F3">
+      <span class="cat-dot"></span>
+      核心部分
+    </button>
+  
+
+    <button class="cat-btn active" data-cat="display" style="--cat-color: #F44336">
+      <span class="cat-dot"></span>
+      屏幕部分
+    </button>
+  
+
+    <button class="cat-btn active" data-cat="expansion" style="--cat-color: #3F51B5">
+      <span class="cat-dot"></span>
+      扩展部分
+    </button>
+  
+
+    <button class="cat-btn active" data-cat="connector" style="--cat-color: #FF9800">
+      <span class="cat-dot"></span>
+      接插件
+    </button>
+  
+
+    <button class="cat-btn active" data-cat="passive" style="--cat-color: #9C27B0">
+      <span class="cat-dot"></span>
+      无源器件
+    </button>
+  
+  </div>
+
+  <div class="table-wrapper">
+    <table id="bom-table">
+      <thead>
+        <tr>
+          <th data-sort="reference">位号 <span class="sort-icon">↕</span></th>
+          <th data-sort="value">值 <span class="sort-icon">↕</span></th>
+          <th class="hide-mobile">封装</th>
+          <th data-sort="quantity">数量 <span class="sort-icon">↕</span></th>
+          <th class="hide-mobile">描述</th>
+          <th data-sort="price">单价 <span class="sort-icon">↕</span></th>
+          <th>小计</th>
+          <th class="hide-mobile">供应商</th>
+        </tr>
+      </thead>
+      <tbody id="bom-body">
+        
+      <tr data-category="core" data-search="U1 F1C200S QFN-88 全志 F1C200S 主控芯片".toLowerCase()>
+        <td style="border-left: 3px solid #2196F3"><code>U1</code></td>
+        <td><code>F1C200S</code></td>
+        <td class="hide-mobile">QFN-88</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">全志 F1C200S 主控芯片</td>
+        <td class="right">¥16.80</td>
+        <td class="right highlight">¥16.80</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/310292.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="core" data-search="U2 W25Q64JVSIQ SOP-8 64Mbit SPI Flash".toLowerCase()>
+        <td style="border-left: 3px solid #2196F3"><code>U2</code></td>
+        <td><code>W25Q64JVSIQ</code></td>
+        <td class="hide-mobile">SOP-8</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">64Mbit SPI Flash</td>
+        <td class="right">¥3.50</td>
+        <td class="right highlight">¥3.50</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/98092.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="core" data-search="U3 W9825G6KH-6 TSOP-II-54 32MB SDRAM".toLowerCase()>
+        <td style="border-left: 3px solid #2196F3"><code>U3</code></td>
+        <td><code>W9825G6KH-6</code></td>
+        <td class="hide-mobile">TSOP-II-54</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">32MB SDRAM</td>
+        <td class="right">¥5.20</td>
+        <td class="right highlight">¥5.20</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/575757.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="power" data-search="U4 AMS1117-3.3 SOT-223 3.3V LDO 稳压器".toLowerCase()>
+        <td style="border-left: 3px solid #4CAF50"><code>U4</code></td>
+        <td><code>AMS1117-3.3</code></td>
+        <td class="hide-mobile">SOT-223</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">3.3V LDO 稳压器</td>
+        <td class="right">¥0.35</td>
+        <td class="right highlight">¥0.35</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/7761.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="core" data-search="Y1 24MHz HC49S 24MHz 晶振".toLowerCase()>
+        <td style="border-left: 3px solid #2196F3"><code>Y1</code></td>
+        <td><code>24MHz</code></td>
+        <td class="hide-mobile">HC49S</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">24MHz 晶振</td>
+        <td class="right">¥0.45</td>
+        <td class="right highlight">¥0.45</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/9989.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="core" data-search="Y2 32.768KHz 3215 32.768KHz RTC 晶振".toLowerCase()>
+        <td style="border-left: 3px solid #2196F3"><code>Y2</code></td>
+        <td><code>32.768KHz</code></td>
+        <td class="hide-mobile">3215</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">32.768KHz RTC 晶振</td>
+        <td class="right">¥0.38</td>
+        <td class="right highlight">¥0.38</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/13654.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="power" data-search="D1 1N5819WS SOD-323 肖特基二极管 SS14".toLowerCase()>
+        <td style="border-left: 3px solid #4CAF50"><code>D1</code></td>
+        <td><code>1N5819WS</code></td>
+        <td class="hide-mobile">SOD-323</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">肖特基二极管 SS14</td>
+        <td class="right">¥0.08</td>
+        <td class="right highlight">¥0.08</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/9352.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="power" data-search="D2 LED-Green 0603 绿色 LED 指示灯".toLowerCase()>
+        <td style="border-left: 3px solid #4CAF50"><code>D2</code></td>
+        <td><code>LED-Green</code></td>
+        <td class="hide-mobile">0603</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">绿色 LED 指示灯</td>
+        <td class="right">¥0.05</td>
+        <td class="right highlight">¥0.05</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/37243.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="connector" data-search="J1 Micro-USB Micro-USB-5P Micro USB 母座".toLowerCase()>
+        <td style="border-left: 3px solid #FF9800"><code>J1</code></td>
+        <td><code>Micro-USB</code></td>
+        <td class="hide-mobile">Micro-USB-5P</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">Micro USB 母座</td>
+        <td class="right">¥0.35</td>
+        <td class="right highlight">¥0.35</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/82808.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="display" data-search="J2 FPC-24P FPC-24P-0.5MM 24Pin FPC 连接器 (屏幕)".toLowerCase()>
+        <td style="border-left: 3px solid #F44336"><code>J2</code></td>
+        <td><code>FPC-24P</code></td>
+        <td class="hide-mobile">FPC-24P-0.5MM</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">24Pin FPC 连接器 (屏幕)</td>
+        <td class="right">¥0.42</td>
+        <td class="right highlight">¥0.42</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/139767.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="expansion" data-search="J3 SD-Card TF-CARD TF 卡座".toLowerCase()>
+        <td style="border-left: 3px solid #3F51B5"><code>J3</code></td>
+        <td><code>SD-Card</code></td>
+        <td class="hide-mobile">TF-CARD</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">TF 卡座</td>
+        <td class="right">¥0.85</td>
+        <td class="right highlight">¥0.85</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/138518.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="power" data-search="J4 Battery-2P PH2.0-2P 电池接口 PH2.0".toLowerCase()>
+        <td style="border-left: 3px solid #4CAF50"><code>J4</code></td>
+        <td><code>Battery-2P</code></td>
+        <td class="hide-mobile">PH2.0-2P</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">电池接口 PH2.0</td>
+        <td class="right">¥0.12</td>
+        <td class="right highlight">¥0.12</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/7466.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="expansion" data-search="SW1 Button 2x4x3.5 轻触开关 2×4×3.5".toLowerCase()>
+        <td style="border-left: 3px solid #3F51B5"><code>SW1</code></td>
+        <td><code>Button</code></td>
+        <td class="hide-mobile">2x4x3.5</td>
+        <td class="center">2</td>
+        <td class="hide-mobile">轻触开关 2×4×3.5</td>
+        <td class="right">¥0.15</td>
+        <td class="right highlight">¥0.30</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/578967.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="power" data-search="SW2 Power-Switch SK-12D07 电源拨动开关".toLowerCase()>
+        <td style="border-left: 3px solid #4CAF50"><code>SW2</code></td>
+        <td><code>Power-Switch</code></td>
+        <td class="hide-mobile">SK-12D07</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">电源拨动开关</td>
+        <td class="right">¥0.28</td>
+        <td class="right highlight">¥0.28</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/238878.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="passive" data-search="C1,C2 22pF 0402 晶振负载电容".toLowerCase()>
+        <td style="border-left: 3px solid #9C27B0"><code>C1,C2</code></td>
+        <td><code>22pF</code></td>
+        <td class="hide-mobile">0402</td>
+        <td class="center">2</td>
+        <td class="hide-mobile">晶振负载电容</td>
+        <td class="right">¥0.01</td>
+        <td class="right highlight">¥0.02</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/14670.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="passive" data-search="C3,C4,C5 100nF 0402 去耦电容".toLowerCase()>
+        <td style="border-left: 3px solid #9C27B0"><code>C3,C4,C5</code></td>
+        <td><code>100nF</code></td>
+        <td class="hide-mobile">0402</td>
+        <td class="center">3</td>
+        <td class="hide-mobile">去耦电容</td>
+        <td class="right">¥0.01</td>
+        <td class="right highlight">¥0.03</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/14535.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="passive" data-search="C6,C7 10uF 0603 滤波电容".toLowerCase()>
+        <td style="border-left: 3px solid #9C27B0"><code>C6,C7</code></td>
+        <td><code>10uF</code></td>
+        <td class="hide-mobile">0603</td>
+        <td class="center">2</td>
+        <td class="hide-mobile">滤波电容</td>
+        <td class="right">¥0.03</td>
+        <td class="right highlight">¥0.06</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/78116.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="passive" data-search="C8,C9 22uF 0805 LDO 输出电容".toLowerCase()>
+        <td style="border-left: 3px solid #9C27B0"><code>C8,C9</code></td>
+        <td><code>22uF</code></td>
+        <td class="hide-mobile">0805</td>
+        <td class="center">2</td>
+        <td class="hide-mobile">LDO 输出电容</td>
+        <td class="right">¥0.05</td>
+        <td class="right highlight">¥0.10</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/87815.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="passive" data-search="R1 10K 0402 上拉电阻".toLowerCase()>
+        <td style="border-left: 3px solid #9C27B0"><code>R1</code></td>
+        <td><code>10K</code></td>
+        <td class="hide-mobile">0402</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">上拉电阻</td>
+        <td class="right">¥0.01</td>
+        <td class="right highlight">¥0.01</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/14447.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="passive" data-search="R2 1K 0402 LED 限流电阻".toLowerCase()>
+        <td style="border-left: 3px solid #9C27B0"><code>R2</code></td>
+        <td><code>1K</code></td>
+        <td class="hide-mobile">0402</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">LED 限流电阻</td>
+        <td class="right">¥0.01</td>
+        <td class="right highlight">¥0.01</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/14429.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="passive" data-search="R3,R4,R5,R6 47R 0402 SDRAM 阻尼电阻".toLowerCase()>
+        <td style="border-left: 3px solid #9C27B0"><code>R3,R4,R5,R6</code></td>
+        <td><code>47R</code></td>
+        <td class="hide-mobile">0402</td>
+        <td class="center">4</td>
+        <td class="hide-mobile">SDRAM 阻尼电阻</td>
+        <td class="right">¥0.01</td>
+        <td class="right highlight">¥0.04</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/14463.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+
+      <tr data-category="passive" data-search="L1 2.2uH 0603 电感".toLowerCase()>
+        <td style="border-left: 3px solid #9C27B0"><code>L1</code></td>
+        <td><code>2.2uH</code></td>
+        <td class="hide-mobile">0603</td>
+        <td class="center">1</td>
+        <td class="hide-mobile">电感</td>
+        <td class="right">¥0.08</td>
+        <td class="right highlight">¥0.08</td>
+        <td class="hide-mobile"><a href="https://item.szlcsc.com/10729.html" target="_blank" rel="noopener">立创商城</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="empty" id="empty" style="display: none;">
+    🔍 没有找到匹配的元器件
+  </div>
+
+  <div class="summary" id="summary">
+    <div class="summary-item">
+      <span class="summary-label">显示元件</span>
+      <span class="summary-value" id="shown-count">22</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">显示数量</span>
+      <span class="summary-value" id="shown-qty">31</span>
+    </div>
+    <div class="summary-item summary-total">
+      <span class="summary-label">显示总价</span>
+      <span class="summary-value" id="shown-price">¥29.48</span>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      项目主页: <a href="https://github.com/rhodesepass/docs" target="_blank">github.com/rhodesepass/docs</a>
+    </p>
+  </footer>
+
+  <script>
+    const bomData = [{"id":"1","reference":"U1","value":"F1C200S","footprint":"QFN-88","quantity":1,"description":"全志 F1C200S 主控芯片","category":"core","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/310292.html","unitPrice":16.8}},{"id":"2","reference":"U2","value":"W25Q64JVSIQ","footprint":"SOP-8","quantity":1,"description":"64Mbit SPI Flash","category":"core","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/98092.html","unitPrice":3.5}},{"id":"3","reference":"U3","value":"W9825G6KH-6","footprint":"TSOP-II-54","quantity":1,"description":"32MB SDRAM","category":"core","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/575757.html","unitPrice":5.2}},{"id":"4","reference":"U4","value":"AMS1117-3.3","footprint":"SOT-223","quantity":1,"description":"3.3V LDO 稳压器","category":"power","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/7761.html","unitPrice":0.35}},{"id":"5","reference":"Y1","value":"24MHz","footprint":"HC49S","quantity":1,"description":"24MHz 晶振","category":"core","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/9989.html","unitPrice":0.45}},{"id":"6","reference":"Y2","value":"32.768KHz","footprint":"3215","quantity":1,"description":"32.768KHz RTC 晶振","category":"core","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/13654.html","unitPrice":0.38}},{"id":"7","reference":"D1","value":"1N5819WS","footprint":"SOD-323","quantity":1,"description":"肖特基二极管 SS14","category":"power","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/9352.html","unitPrice":0.08}},{"id":"8","reference":"D2","value":"LED-Green","footprint":"0603","quantity":1,"description":"绿色 LED 指示灯","category":"power","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/37243.html","unitPrice":0.05}},{"id":"9","reference":"J1","value":"Micro-USB","footprint":"Micro-USB-5P","quantity":1,"description":"Micro USB 母座","category":"connector","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/82808.html","unitPrice":0.35}},{"id":"10","reference":"J2","value":"FPC-24P","footprint":"FPC-24P-0.5MM","quantity":1,"description":"24Pin FPC 连接器 (屏幕)","category":"display","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/139767.html","unitPrice":0.42}},{"id":"11","reference":"J3","value":"SD-Card","footprint":"TF-CARD","quantity":1,"description":"TF 卡座","category":"expansion","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/138518.html","unitPrice":0.85}},{"id":"12","reference":"J4","value":"Battery-2P","footprint":"PH2.0-2P","quantity":1,"description":"电池接口 PH2.0","category":"power","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/7466.html","unitPrice":0.12}},{"id":"13","reference":"SW1","value":"Button","footprint":"2x4x3.5","quantity":2,"description":"轻触开关 2×4×3.5","category":"expansion","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/578967.html","unitPrice":0.15}},{"id":"14","reference":"SW2","value":"Power-Switch","footprint":"SK-12D07","quantity":1,"description":"电源拨动开关","category":"power","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/238878.html","unitPrice":0.28}},{"id":"15","reference":"C1,C2","value":"22pF","footprint":"0402","quantity":2,"description":"晶振负载电容","category":"passive","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/14670.html","unitPrice":0.01}},{"id":"16","reference":"C3,C4,C5","value":"100nF","footprint":"0402","quantity":3,"description":"去耦电容","category":"passive","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/14535.html","unitPrice":0.01}},{"id":"17","reference":"C6,C7","value":"10uF","footprint":"0603","quantity":2,"description":"滤波电容","category":"passive","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/78116.html","unitPrice":0.03}},{"id":"18","reference":"C8,C9","value":"22uF","footprint":"0805","quantity":2,"description":"LDO 输出电容","category":"passive","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/87815.html","unitPrice":0.05}},{"id":"19","reference":"R1","value":"10K","footprint":"0402","quantity":1,"description":"上拉电阻","category":"passive","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/14447.html","unitPrice":0.01}},{"id":"20","reference":"R2","value":"1K","footprint":"0402","quantity":1,"description":"LED 限流电阻","category":"passive","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/14429.html","unitPrice":0.01}},{"id":"21","reference":"R3,R4,R5,R6","value":"47R","footprint":"0402","quantity":4,"description":"SDRAM 阻尼电阻","category":"passive","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/14463.html","unitPrice":0.01}},{"id":"22","reference":"L1","value":"2.2uH","footprint":"0603","quantity":1,"description":"电感","category":"passive","supplier":{"name":"立创商城","url":"https://item.szlcsc.com/10729.html","unitPrice":0.08}}];
+    const categories = ["power","core","display","expansion","connector","passive"];
+    let activeCategories = new Set(categories);
+    let searchQuery = '';
+    let sortBy = '';
+    let sortDesc = false;
+
+    // 搜索
+    document.getElementById('search').addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      filterTable();
+    });
+
+    // 分类筛选
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.dataset.cat;
+        if (activeCategories.has(cat)) {
+          activeCategories.delete(cat);
+          btn.classList.remove('active');
+        } else {
+          activeCategories.add(cat);
+          btn.classList.add('active');
+        }
+        filterTable();
+      });
+    });
+
+    // 排序
+    document.querySelectorAll('th[data-sort]').forEach(th => {
+      th.addEventListener('click', () => {
+        const field = th.dataset.sort;
+        if (sortBy === field) {
+          sortDesc = !sortDesc;
+        } else {
+          sortBy = field;
+          sortDesc = false;
+        }
+        document.querySelectorAll('th').forEach(h => h.classList.remove('sorted'));
+        th.classList.add('sorted');
+        th.querySelector('.sort-icon').textContent = sortDesc ? '↓' : '↑';
+        sortTable();
+      });
+    });
+
+    function filterTable() {
+      const rows = document.querySelectorAll('#bom-body tr');
+      let visibleCount = 0;
+      let visibleQty = 0;
+      let visiblePrice = 0;
+
+      rows.forEach((row, i) => {
+        const cat = row.dataset.category;
+        const searchText = row.dataset.search;
+        const catMatch = activeCategories.has(cat);
+        const searchMatch = !searchQuery || searchText.includes(searchQuery);
+
+        if (catMatch && searchMatch) {
+          row.classList.remove('hidden');
+          visibleCount++;
+          visibleQty += bomData[i].quantity;
+          visiblePrice += bomData[i].quantity * bomData[i].supplier.unitPrice;
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+
+      document.getElementById('shown-count').textContent = visibleCount;
+      document.getElementById('shown-qty').textContent = visibleQty;
+      document.getElementById('shown-price').textContent = '¥' + visiblePrice.toFixed(2);
+      document.getElementById('empty').style.display = visibleCount === 0 ? 'block' : 'none';
+      document.getElementById('summary').style.display = visibleCount === 0 ? 'none' : 'flex';
+    }
+
+    function sortTable() {
+      const tbody = document.getElementById('bom-body');
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+
+      rows.sort((a, b) => {
+        const ai = Array.from(tbody.children).indexOf(a);
+        const bi = Array.from(tbody.children).indexOf(b);
+        const aData = bomData[ai];
+        const bData = bomData[bi];
+
+        let cmp = 0;
+        switch (sortBy) {
+          case 'reference':
+            cmp = aData.reference.localeCompare(bData.reference);
+            break;
+          case 'value':
+            cmp = aData.value.localeCompare(bData.value);
+            break;
+          case 'quantity':
+            cmp = aData.quantity - bData.quantity;
+            break;
+          case 'price':
+            cmp = aData.supplier.unitPrice - bData.supplier.unitPrice;
+            break;
+        }
+        return sortDesc ? -cmp : cmp;
+      });
+
+      rows.forEach(row => tbody.appendChild(row));
+    }
+
+    function exportCSV() {
+      const headers = ['位号', '值', '封装', '数量', '描述', '供应商', '单价', '小计', '链接'];
+      const rows = bomData.map(c => [
+        c.reference,
+        c.value,
+        c.footprint,
+        c.quantity,
+        c.description,
+        c.supplier.name,
+        c.supplier.unitPrice.toFixed(2),
+        (c.quantity * c.supplier.unitPrice).toFixed(2),
+        c.supplier.url
+      ]);
+
+      const csvContent = [
+        headers.join(','),
+        ...rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
+      ].join('\n');
+
+      const BOM = new Uint8Array([0xEF, 0xBB, 0xBF]);
+      const blob = new Blob([BOM, csvContent], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'bom-v0.5.1.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>

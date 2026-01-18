@@ -1,0 +1,267 @@
+{
+  "version": "v0.6",
+  "metadata": {
+    "totalComponents": 45,
+    "generatedAt": "2024-01-15T00:00:00.000Z"
+  },
+  "categories": [
+    { "id": "power", "name": "电源部分", "color": "#4CAF50" },
+    { "id": "core", "name": "核心部分", "color": "#2196F3" },
+    { "id": "display", "name": "屏幕部分", "color": "#F44336" },
+    { "id": "expansion", "name": "扩展部分", "color": "#3F51B5" },
+    { "id": "connector", "name": "接插件", "color": "#FF9800" },
+    { "id": "passive", "name": "无源器件", "color": "#9C27B0" }
+  ],
+  "components": [
+    {
+      "id": "1",
+      "reference": "U1",
+      "value": "F1C200S",
+      "footprint": "QFN-88",
+      "quantity": 1,
+      "description": "全志 F1C200S 主控芯片",
+      "category": "core",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/310292.html", "unitPrice": 16.8 }
+    },
+    {
+      "id": "2",
+      "reference": "U2",
+      "value": "W25Q64JVSIQ",
+      "footprint": "SOP-8",
+      "quantity": 1,
+      "description": "64Mbit SPI Flash",
+      "category": "core",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/98092.html", "unitPrice": 3.5 }
+    },
+    {
+      "id": "3",
+      "reference": "U3",
+      "value": "W9825G6KH-6",
+      "footprint": "TSOP-II-54",
+      "quantity": 1,
+      "description": "32MB SDRAM",
+      "category": "core",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/575757.html", "unitPrice": 5.2 }
+    },
+    {
+      "id": "4",
+      "reference": "U4",
+      "value": "AMS1117-3.3",
+      "footprint": "SOT-223",
+      "quantity": 1,
+      "description": "3.3V LDO 稳压器",
+      "category": "power",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/7761.html", "unitPrice": 0.35 }
+    },
+    {
+      "id": "5",
+      "reference": "U5",
+      "value": "ME6211C33M5G",
+      "footprint": "SOT-23-5",
+      "quantity": 1,
+      "description": "3.3V 低压差 LDO",
+      "category": "power",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/88375.html", "unitPrice": 0.28 }
+    },
+    {
+      "id": "6",
+      "reference": "Y1",
+      "value": "24MHz",
+      "footprint": "HC49S",
+      "quantity": 1,
+      "description": "24MHz 晶振",
+      "category": "core",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/9989.html", "unitPrice": 0.45 }
+    },
+    {
+      "id": "7",
+      "reference": "Y2",
+      "value": "32.768KHz",
+      "footprint": "3215",
+      "quantity": 1,
+      "description": "32.768KHz RTC 晶振",
+      "category": "core",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/13654.html", "unitPrice": 0.38 }
+    },
+    {
+      "id": "8",
+      "reference": "D1",
+      "value": "1N5819WS",
+      "footprint": "SOD-323",
+      "quantity": 1,
+      "description": "肖特基二极管 SS14",
+      "category": "power",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/9352.html", "unitPrice": 0.08 }
+    },
+    {
+      "id": "9",
+      "reference": "D2",
+      "value": "LED-Green",
+      "footprint": "0603",
+      "quantity": 1,
+      "description": "绿色 LED 指示灯",
+      "category": "power",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/37243.html", "unitPrice": 0.05 }
+    },
+    {
+      "id": "10",
+      "reference": "J1",
+      "value": "USB-C",
+      "footprint": "USB-C-16P",
+      "quantity": 1,
+      "description": "USB Type-C 母座",
+      "category": "connector",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/383881.html", "unitPrice": 0.65 }
+    },
+    {
+      "id": "11",
+      "reference": "J2",
+      "value": "FPC-24P",
+      "footprint": "FPC-24P-0.5MM",
+      "quantity": 1,
+      "description": "24Pin FPC 连接器 (屏幕)",
+      "category": "display",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/139767.html", "unitPrice": 0.42 }
+    },
+    {
+      "id": "12",
+      "reference": "J3",
+      "value": "SD-Card",
+      "footprint": "TF-CARD",
+      "quantity": 1,
+      "description": "TF 卡座",
+      "category": "expansion",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/138518.html", "unitPrice": 0.85 }
+    },
+    {
+      "id": "13",
+      "reference": "J4",
+      "value": "Battery-2P",
+      "footprint": "PH2.0-2P",
+      "quantity": 1,
+      "description": "电池接口 PH2.0",
+      "category": "power",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/7466.html", "unitPrice": 0.12 }
+    },
+    {
+      "id": "14",
+      "reference": "SW1",
+      "value": "Button",
+      "footprint": "2x4x3.5",
+      "quantity": 3,
+      "description": "轻触开关 2×4×3.5",
+      "category": "expansion",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/578967.html", "unitPrice": 0.15 }
+    },
+    {
+      "id": "15",
+      "reference": "SW2",
+      "value": "Power-Switch",
+      "footprint": "SK-12D07",
+      "quantity": 1,
+      "description": "电源拨动开关",
+      "category": "power",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/238878.html", "unitPrice": 0.28 }
+    },
+    {
+      "id": "16",
+      "reference": "C1,C2",
+      "value": "22pF",
+      "footprint": "0402",
+      "quantity": 2,
+      "description": "晶振负载电容",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/14670.html", "unitPrice": 0.01 }
+    },
+    {
+      "id": "17",
+      "reference": "C3,C4,C5,C6",
+      "value": "100nF",
+      "footprint": "0402",
+      "quantity": 4,
+      "description": "去耦电容",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/14535.html", "unitPrice": 0.01 }
+    },
+    {
+      "id": "18",
+      "reference": "C7,C8",
+      "value": "10uF",
+      "footprint": "0603",
+      "quantity": 2,
+      "description": "滤波电容",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/78116.html", "unitPrice": 0.03 }
+    },
+    {
+      "id": "19",
+      "reference": "C9,C10",
+      "value": "22uF",
+      "footprint": "0805",
+      "quantity": 2,
+      "description": "LDO 输出电容",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/87815.html", "unitPrice": 0.05 }
+    },
+    {
+      "id": "20",
+      "reference": "R1,R2",
+      "value": "5.1K",
+      "footprint": "0402",
+      "quantity": 2,
+      "description": "USB CC 电阻",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/14451.html", "unitPrice": 0.01 }
+    },
+    {
+      "id": "21",
+      "reference": "R3",
+      "value": "10K",
+      "footprint": "0402",
+      "quantity": 1,
+      "description": "上拉电阻",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/14447.html", "unitPrice": 0.01 }
+    },
+    {
+      "id": "22",
+      "reference": "R4",
+      "value": "1K",
+      "footprint": "0402",
+      "quantity": 1,
+      "description": "LED 限流电阻",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/14429.html", "unitPrice": 0.01 }
+    },
+    {
+      "id": "23",
+      "reference": "R5,R6,R7,R8",
+      "value": "47R",
+      "footprint": "0402",
+      "quantity": 4,
+      "description": "SDRAM 阻尼电阻",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/14463.html", "unitPrice": 0.01 }
+    },
+    {
+      "id": "24",
+      "reference": "L1",
+      "value": "2.2uH",
+      "footprint": "0603",
+      "quantity": 1,
+      "description": "电感",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/10729.html", "unitPrice": 0.08 }
+    },
+    {
+      "id": "25",
+      "reference": "FB1",
+      "value": "Ferrite",
+      "footprint": "0603",
+      "quantity": 1,
+      "description": "磁珠",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/11284.html", "unitPrice": 0.02 }
+    }
+  ]
+}

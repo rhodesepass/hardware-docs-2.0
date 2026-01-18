@@ -1,0 +1,197 @@
+{
+  "version": "v0.3.1",
+  "metadata": {
+    "totalComponents": 32,
+    "generatedAt": "2023-06-01T00:00:00.000Z"
+  },
+  "categories": [
+    { "id": "power", "name": "电源部分", "color": "#4CAF50" },
+    { "id": "core", "name": "核心部分", "color": "#2196F3" },
+    { "id": "display", "name": "屏幕部分", "color": "#F44336" },
+    { "id": "expansion", "name": "扩展部分", "color": "#3F51B5" },
+    { "id": "connector", "name": "接插件", "color": "#FF9800" },
+    { "id": "passive", "name": "无源器件", "color": "#9C27B0" }
+  ],
+  "components": [
+    {
+      "id": "1",
+      "reference": "U1",
+      "value": "F1C100S",
+      "footprint": "QFN-88",
+      "quantity": 1,
+      "description": "全志 F1C100S 主控芯片",
+      "category": "core",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/310291.html", "unitPrice": 12.5 }
+    },
+    {
+      "id": "2",
+      "reference": "U2",
+      "value": "W25Q16JVSIQ",
+      "footprint": "SOP-8",
+      "quantity": 1,
+      "description": "16Mbit SPI Flash",
+      "category": "core",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/98090.html", "unitPrice": 1.8 }
+    },
+    {
+      "id": "3",
+      "reference": "U3",
+      "value": "AMS1117-3.3",
+      "footprint": "SOT-223",
+      "quantity": 1,
+      "description": "3.3V LDO 稳压器",
+      "category": "power",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/7761.html", "unitPrice": 0.35 }
+    },
+    {
+      "id": "4",
+      "reference": "Y1",
+      "value": "24MHz",
+      "footprint": "HC49S",
+      "quantity": 1,
+      "description": "24MHz 晶振",
+      "category": "core",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/9989.html", "unitPrice": 0.45 }
+    },
+    {
+      "id": "5",
+      "reference": "D1",
+      "value": "1N5819WS",
+      "footprint": "SOD-323",
+      "quantity": 1,
+      "description": "肖特基二极管 SS14",
+      "category": "power",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/9352.html", "unitPrice": 0.08 }
+    },
+    {
+      "id": "6",
+      "reference": "D2",
+      "value": "LED-Green",
+      "footprint": "0603",
+      "quantity": 1,
+      "description": "绿色 LED 指示灯",
+      "category": "power",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/37243.html", "unitPrice": 0.05 }
+    },
+    {
+      "id": "7",
+      "reference": "J1",
+      "value": "Micro-USB",
+      "footprint": "Micro-USB-5P",
+      "quantity": 1,
+      "description": "Micro USB 母座",
+      "category": "connector",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/82808.html", "unitPrice": 0.35 }
+    },
+    {
+      "id": "8",
+      "reference": "J2",
+      "value": "FPC-24P",
+      "footprint": "FPC-24P-0.5MM",
+      "quantity": 1,
+      "description": "24Pin FPC 连接器 (屏幕)",
+      "category": "display",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/139767.html", "unitPrice": 0.42 }
+    },
+    {
+      "id": "9",
+      "reference": "J3",
+      "value": "SD-Card",
+      "footprint": "TF-CARD",
+      "quantity": 1,
+      "description": "TF 卡座",
+      "category": "expansion",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/138518.html", "unitPrice": 0.85 }
+    },
+    {
+      "id": "10",
+      "reference": "J4",
+      "value": "Battery-2P",
+      "footprint": "PH2.0-2P",
+      "quantity": 1,
+      "description": "电池接口 PH2.0",
+      "category": "power",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/7466.html", "unitPrice": 0.12 }
+    },
+    {
+      "id": "11",
+      "reference": "SW1",
+      "value": "Button",
+      "footprint": "2x4x3.5",
+      "quantity": 2,
+      "description": "轻触开关 2×4×3.5",
+      "category": "expansion",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/578967.html", "unitPrice": 0.15 }
+    },
+    {
+      "id": "12",
+      "reference": "SW2",
+      "value": "Power-Switch",
+      "footprint": "SK-12D07",
+      "quantity": 1,
+      "description": "电源拨动开关",
+      "category": "power",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/238878.html", "unitPrice": 0.28 }
+    },
+    {
+      "id": "13",
+      "reference": "C1,C2",
+      "value": "22pF",
+      "footprint": "0402",
+      "quantity": 2,
+      "description": "晶振负载电容",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/14670.html", "unitPrice": 0.01 }
+    },
+    {
+      "id": "14",
+      "reference": "C3,C4",
+      "value": "100nF",
+      "footprint": "0402",
+      "quantity": 2,
+      "description": "去耦电容",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/14535.html", "unitPrice": 0.01 }
+    },
+    {
+      "id": "15",
+      "reference": "C5,C6",
+      "value": "10uF",
+      "footprint": "0603",
+      "quantity": 2,
+      "description": "滤波电容",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/78116.html", "unitPrice": 0.03 }
+    },
+    {
+      "id": "16",
+      "reference": "C7,C8",
+      "value": "22uF",
+      "footprint": "0805",
+      "quantity": 2,
+      "description": "LDO 输出电容",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/87815.html", "unitPrice": 0.05 }
+    },
+    {
+      "id": "17",
+      "reference": "R1",
+      "value": "10K",
+      "footprint": "0402",
+      "quantity": 1,
+      "description": "上拉电阻",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/14447.html", "unitPrice": 0.01 }
+    },
+    {
+      "id": "18",
+      "reference": "R2",
+      "value": "1K",
+      "footprint": "0402",
+      "quantity": 1,
+      "description": "LED 限流电阻",
+      "category": "passive",
+      "supplier": { "name": "立创商城", "url": "https://item.szlcsc.com/14429.html", "unitPrice": 0.01 }
+    }
+  ]
+}

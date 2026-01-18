@@ -1,0 +1,42 @@
+name: Generate BOM HTML
+
+on:
+  push:
+    paths:
+      - 'docs/public/bom/*.json'
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'BOM 版本号 (如 v0.6)，留空则生成所有版本'
+        required: false
+        default: ''
+
+jobs:
+  generate-html:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate BOM HTML
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            node scripts/generate-bom-html.js ${{ github.event.inputs.version }}
+          else
+            for file in docs/public/bom/v*.json; do
+              node scripts/generate-bom-html.js "$(basename "$file" .json)"
+            done
+          fi
+
+      - name: Commit changes
+        run: |
+          git diff --quiet docs/public/bom/*.html && exit 0
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add docs/public/bom/*.html
+          git commit -m "chore: 自动生成 BOM HTML 文件"
+          git push

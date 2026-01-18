@@ -1,9 +1,12 @@
 import DefaultTheme from 'vitepress/theme'
 import './hyperos.css'
+import './styles/bom-table.css'
+import BomTable from './components/BomTable.vue'
 
 export default {
   extends: DefaultTheme,
   enhanceApp({ app, router }) {
+    app.component('BomTable', BomTable)
     if (typeof window !== 'undefined') {
       let animationFrameId: number | null = null
       let cleanupTimeoutId: number | null = null
