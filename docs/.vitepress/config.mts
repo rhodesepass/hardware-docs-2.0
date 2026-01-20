@@ -86,6 +86,8 @@ export default defineConfig({
             { text: '开发概述', link: '/guide/develop/' },
             { text: '开发环境搭建', link: '/guide/develop/env_setup' },
             { text: '第一个应用程序', link: '/guide/develop/your_first_app' },
+            { text: '拓展能力', link: '/guide/develop/extension' },
+            { text: '接入通行证Shell', link: '/guide/develop/shell_access' },
             { text: '定制ioctl文档', link: '/guide/develop/custom_ioctl' },
             { text: '设备树中的功能开关', link: '/guide/develop/dt_switch' },
           ]
